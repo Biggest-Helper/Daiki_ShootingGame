@@ -1,11 +1,21 @@
 #pragma once
 #include "AbstractScene.h"
+#include "Player.h"
 
 class GameMainScene : public AbstractScene
 {
+private:
+	Player* player;
+
+
 public:
+	//コンストラクタ
+	GameMainScene();
+
 	//デストラクタ
 	virtual ~GameMainScene() {};
+
+public:
 
 	//描画以外の更新を実装する
 	virtual void Update() override;
