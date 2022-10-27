@@ -7,9 +7,12 @@ private:
 	int point;
 
 public:
+	Enemy(T_Location location);
+
+public:
 	virtual void Updata() override;
 	virtual void Draw() override;
 	virtual void Hit() override;
-	void HpCheck();
-	void GetPoint();
+	bool HpCheck();
+	int GetPoint();
 };

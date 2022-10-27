@@ -1,13 +1,21 @@
+#include "DxLib.h"
 #include "Enemy.h"
 
-void Enemy::Updata()
+Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{0, 0.5}), hp(10), point(10)
 {
 
 }
 
+void Enemy::Updata()
+{
+	T_Location newLocation = GetLocation();
+	newLocation.y += 0.5;
+	SetLocation(newLocation);
+}
+
 void Enemy::Draw()
 {
-
+	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
 }
 
 void Enemy::Hit()
@@ -15,12 +23,13 @@ void Enemy::Hit()
 
 }
 
-void Enemy::HpCheck()
+bool Enemy::HpCheck()
 {
-
+	bool ret = (hp <= 0);
+	return ret;
 }
 
-void Enemy::GetPoint()
+int Enemy::GetPoint()
 {
-
+	return point;
 }

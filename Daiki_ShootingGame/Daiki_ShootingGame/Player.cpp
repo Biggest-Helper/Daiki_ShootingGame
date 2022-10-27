@@ -15,7 +15,28 @@ Player::Player(T_Location location) : CharaBase(location, 10.f, T_Location{2, 2}
 void Player::Updata()
 {
 	T_Location newLocation = GetLocation();
-	newLocation.x += 1;
+
+	if (KeyManager::OnKeyPressed(KEY_INPUT_W))
+	{
+		newLocation.y -= speed.y;
+	}
+
+	if(KeyManager::OnKeyPressed(KEY_INPUT_A))
+	{
+		newLocation.x -= speed.x;
+	}
+
+	if(KeyManager::OnKeyPressed(KEY_INPUT_S))
+	{
+		newLocation.y += speed.y;
+	}
+
+	if(KeyManager::OnKeyPressed(KEY_INPUT_D))
+	{
+		newLocation.x += speed.x;
+	}
+
+	/*newLocation.x += 1;*/
 	SetLocation(newLocation);
 
 	int bulletCount;

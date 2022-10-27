@@ -3,10 +3,8 @@
 #include "BulletsBase.h"
 class CharaBase : public SphereCollider
 {
-private:
-	T_Location speed;
-
 protected:
+	T_Location speed;
 	int* image;
 	BulletsBase** bullets;
 
