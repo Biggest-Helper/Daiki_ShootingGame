@@ -48,6 +48,23 @@ void Player::Updata()
 			break;
 		}
 		bullets[bulletCount]->Update();
+
+		//画面外に行ったら弾を消す
+		if (bullets[bulletCount]->isScreenOut())
+		{
+			delete bullets[bulletCount];
+			bullets[bulletCount] = nullptr;
+
+			//配列を前に詰める(ソート)
+			for (int i = 0; i < 29; i++)
+			{
+				if (bullets[i] == nullptr)
+				{
+					bullets[i] = bullets[i + 1];
+					bullets[i + 1] = nullptr;
+				}
+			}
+		}
 	}
 
 	//左クリックで弾を発射
