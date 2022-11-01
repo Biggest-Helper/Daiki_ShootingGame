@@ -55,7 +55,7 @@ void Player::Updata()
 			delete bullets[bulletCount];
 			bullets[bulletCount] = nullptr;
 
-			//配列を前に詰める(ソート)
+			/*配列を前に詰める(ソート)*/
 			for (int i = 0; i < 29; i++)
 			{
 				if (bullets[i] == nullptr)
