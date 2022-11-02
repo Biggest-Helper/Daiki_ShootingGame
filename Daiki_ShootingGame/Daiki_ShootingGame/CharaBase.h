@@ -14,6 +14,7 @@ public:
 public:
 	virtual void Updata() = 0;
 	virtual void Draw() = 0;
-	virtual void Hit() = 0;
+	virtual void Hit(int damage) = 0;
 	BulletsBase** GetBullets();
+	void DeleteBullet(int bulletNum);
 };

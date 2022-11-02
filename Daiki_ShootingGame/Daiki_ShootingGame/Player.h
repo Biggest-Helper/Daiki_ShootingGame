@@ -12,7 +12,7 @@ public:
 public:
 	void Updata() override;
 	void Draw() override;
-	void Hit() override;
+	void Hit(int damage) override;
 	bool LifeCheck();
 	int GetScore();
 };

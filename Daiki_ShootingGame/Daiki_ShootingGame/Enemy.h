@@ -12,7 +12,7 @@ public:
 public:
 	virtual void Updata() override;
 	virtual void Draw() override;
-	virtual void Hit() override;
+	virtual void Hit(int damage) override;
 	bool HpCheck();
 	int GetPoint();
 };

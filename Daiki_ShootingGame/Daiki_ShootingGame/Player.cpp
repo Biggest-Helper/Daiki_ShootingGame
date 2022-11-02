@@ -56,14 +56,28 @@ void Player::Updata()
 			bullets[bulletCount] = nullptr;
 
 			/*配列を前に詰める(ソート)*/
-			for (int i = 0; i < 29; i++)
+			for (int i = bulletCount; i < (30 - 1); i++)
+			{
+				if (bullets[i + 1] == nullptr)
+				{
+					break;
+				}
+				bullets[i] = bullets[i + 1];
+				bullets[i + 1] = nullptr;
+			}
+
+			/* 同じ処理内容 */
+			/*for (int i = bulletCount + 1; i < 30; i++)
 			{
 				if (bullets[i] == nullptr)
 				{
-					bullets[i] = bullets[i + 1];
-					bullets[i + 1] = nullptr;
+					break;
 				}
-			}
+				bullets[i - 1] = bullets[i];
+				bullets[i] = nullptr;
+			}*/
+
+			bulletCount--;
 		}
 	}
 
@@ -91,7 +105,7 @@ void Player::Draw()
 	}
 }
 
-void Player::Hit()
+void Player::Hit(int damage)
 {
 
 }
