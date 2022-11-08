@@ -48,8 +48,7 @@ void GameMainScene::Update()
 
 			if (enemy[enemyCount]->HitSphere(bullets[bulletCount]))
 			{
-				//エネミーとプレイヤーの弾がヒットしている
-
+				//エネミーとプレイヤーの弾がヒットしている時、
 				//エネミーにダメージを与えます。
 				enemy[enemyCount]->Hit(bullets[bulletCount]->GetDamage());
 
@@ -60,8 +59,25 @@ void GameMainScene::Update()
 				//エネミーのHPが0以下だったら、エネミーを削除します。
 				if (enemy[enemyCount]->HpCheck())
 				{
-					//エネミーの削除
+					//スコアの加算
+					player->AddScore(enemy[enemyCount]->GetPoint());
 
+					//エネミーの削除
+					delete enemy[enemyCount];
+					enemy[enemyCount] = nullptr;
+
+					/*配列を前に詰める(ソート)*/
+					for (int i = enemyCount; i < (10 - 1); i++)
+					{
+						if (enemy[i + 1] == nullptr)
+						{
+							break;
+						}
+						enemy[i] = enemy[i + 1];
+						enemy[i + 1] = nullptr;
+					}
+					enemyCount--;
+					break;
 				}
 			}
 		}
