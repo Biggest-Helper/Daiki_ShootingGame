@@ -11,6 +11,9 @@ protected:
 	T_Location speed;
 
 public:
+	ItemBase(T_Location location, float radius, E_ITEM_TYPE type, T_Location speed);
+
+public:
 	virtual void Updata() = 0;
 	virtual void Draw() = 0;
 	E_ITEM_TYPE GetType();

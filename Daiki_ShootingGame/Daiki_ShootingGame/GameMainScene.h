@@ -2,12 +2,14 @@
 #include "AbstractScene.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "ItemBase.h"
 
 class GameMainScene : public AbstractScene
 {
 private:
 	Player* player;
 	Enemy** enemy;
+	ItemBase** items;
 
 public:
 	//コンストラクタ

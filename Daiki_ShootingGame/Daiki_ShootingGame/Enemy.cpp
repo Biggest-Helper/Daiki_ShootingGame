@@ -9,7 +9,7 @@ Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{0, 0.5}
 void Enemy::Updata()
 {
 	T_Location newLocation = GetLocation();
-	newLocation.y += 0.5;
+	newLocation.y += speed.y;
 	SetLocation(newLocation);
 }
 
