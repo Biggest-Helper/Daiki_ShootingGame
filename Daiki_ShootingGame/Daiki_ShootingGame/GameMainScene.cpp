@@ -116,8 +116,12 @@ void GameMainScene::Update()
 
 		if (items[itemCount]->HitSphere(player) == true)
 		{
+			//回復処理
+			player->Hit(items[itemCount]);
+
 			delete items[itemCount];
 			items[itemCount] = nullptr;
+
 			/*配列を前に詰める(ソート)*/
 			for (int i = itemCount; i < (10 - 1); i++)
 			{

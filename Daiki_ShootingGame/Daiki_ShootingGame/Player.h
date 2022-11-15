@@ -16,4 +16,5 @@ public:
 	bool LifeCheck();
 	int GetScore();
 	void AddScore(int score);
+	void Hit(class ItemBase* item);
 };

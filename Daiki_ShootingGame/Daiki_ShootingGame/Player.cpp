@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "StraightBullets.h"
 #include "KeyManager.h"
+#include "Recovery.h"
 
 Player::Player(T_Location location) : CharaBase(location, 10.f, T_Location{2, 2}), score(0), life(10)
 {
@@ -114,6 +115,21 @@ void Player::Draw()
 void Player::Hit(int damage)
 {
 
+}
+
+void Player::Hit(ItemBase* item)
+{
+	switch (item->GetType())
+	{
+	case E_ITEM_TYPE::Heal:
+	{
+		Recovery* recovery = dynamic_cast<Recovery*>(item);
+		life += recovery->GetRecovery_PT();
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 bool Player::LifeCheck()
