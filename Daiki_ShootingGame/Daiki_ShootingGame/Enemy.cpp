@@ -4,7 +4,11 @@
 
 Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{0, 0.5}), hp(10), point(10)
 {
-
+	bullets = new BulletsBase * [30];
+	for (int i = 0; i < 30; i++)
+	{
+		bullets[i] = nullptr;
+	}
 }
 
 void Enemy::Updata()
@@ -43,16 +47,27 @@ void Enemy::Updata()
 		}
 	}
 
-	//弾発射処理
+	//毎フレーム、弾を発射
 	if (bulletCount < 30 && bullets[bulletCount] == nullptr);
 	{
-		bullets[bulletCount] = new StraightBullets(GetLocation());
+		bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2 });
 	}
 }
 
 void Enemy::Draw()
 {
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
+
+	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
+	for (int bulletCount = 0; bulletCount < 30; bulletCount++)
+	{
+		//弾切れがないかチェック
+		if (bullets[bulletCount] == nullptr)
+		{
+			break;
+		}
+		bullets[bulletCount]->Draw();
+	}
 }
 
 void Enemy::Hit(int damage)
