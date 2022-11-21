@@ -107,22 +107,38 @@ void GameMainScene::Update()
 		}
 	}
 
-	//int bulletCount2;
-	//bullets = enemy[enemyCount]->GetBullets();
-	//for (bulletCount2 = 0; bulletCount2 < 30; bulletCount2++)
-	//{
-	//	if (player->HitSphere(bullets[bulletCount2]))
-	//	{
-	//		//エネミーとプレイヤーの弾がヒットしている時、
-	//		//エネミーにダメージを与えます。
-	//		player->Hit(bullets[bulletCount2]->GetDamage());
+	//敵の弾を取得
+	BulletsBase** bullet = player->GetBullets();
+	for (enemyCount = 0; enemyCount < 10; enemyCount++)
+	{
+		for (enemyCount; enemyCount < 10; enemyCount++)
+		{
+			if (enemy[enemyCount] == nullptr)
+			{
+				break;
+			}
+			bullet = enemy[enemyCount]->GetBullets();
 
-	//		//弾を削除します
-	//		enemy[enemyCount]->DeleteBullet(bulletCount2);
-	//		bulletCount2--;
-	//	}
-	//}
-	
+			//弾をループで参照
+			for (int i = 0; i < 30; i++)
+			{
+				if (bullet[i] == nullptr)
+				{
+					break;
+				}
+
+				if (player->HitSphere(bullet[i]))
+				{
+					//プレイヤーにダメージを与える
+					player->Hit(bullet[i]->GetDamage());
+
+					//敵の弾を削除する;
+					enemy[enemyCount]->DeleteBullet(i);
+				}
+			}
+		}
+	}
+
 	//敵の弾を取ってくる;
 	//for(弾をループで参照)
 	//{
