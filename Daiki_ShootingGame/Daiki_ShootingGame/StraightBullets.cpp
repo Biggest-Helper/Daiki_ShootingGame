@@ -10,6 +10,7 @@ StraightBullets::StraightBullets(T_Location location, T_Location speed) :
 void StraightBullets::Update()
 {
 	T_Location newLocation = GetLocation();
+	newLocation.x += speed.x;
 	newLocation.y += speed.y;
 	SetLocation(newLocation);
 }
