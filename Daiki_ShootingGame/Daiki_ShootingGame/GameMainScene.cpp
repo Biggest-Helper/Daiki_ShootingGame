@@ -4,7 +4,7 @@
 //コンストラクタ
 GameMainScene::GameMainScene()
 {
-	T_Location location = T_Location{ 20, 100 };
+	T_Location location = T_Location{ 640, 500 };
 	player = new Player(location);
 
 	enemy = new Enemy * [10];
@@ -12,7 +12,7 @@ GameMainScene::GameMainScene()
 	{
 		enemy[i] = nullptr;
 	}
-	enemy[0] = new Enemy(T_Location{ 200, 0 });
+	enemy[0] = new Enemy(T_Location{ 640, 200 });
 
 	items = new ItemBase * [10];
 	for (int i = 0; i < 10; i++)
