@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "common.h"
 #include "StraightBullets.h"
 
 StraightBullets::StraightBullets(T_Location location, T_Location speed) :
@@ -28,6 +29,6 @@ bool StraightBullets::isScreenOut()
 		return ret;
 	}
 
-	ret = (720 <= (GetLocation().y - GetRadius()));
+	ret = (SCREEN_HEIGHT <= (GetLocation().y - GetRadius()));
 	return ret;
 }

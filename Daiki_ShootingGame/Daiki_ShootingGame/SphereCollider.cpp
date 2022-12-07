@@ -1,5 +1,6 @@
 #include "SphereCollider.h"
 #include "math.h"
+#include "common.h"
 
 //コンストラクタ
 SphereCollider::SphereCollider(T_Location location, float radius)
