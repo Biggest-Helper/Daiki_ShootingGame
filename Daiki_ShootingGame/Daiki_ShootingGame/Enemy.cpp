@@ -3,7 +3,15 @@
 #include "StraightBullets.h"
 #include "CircleBullet.h"
 
-Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{0, 0.5}), hp(10), point(10), shotNum(0)
+T_Location locations[4] =
+{
+	{640, 0},
+	{640, 100},
+	{1000, 100},
+	{280, 100},
+};
+
+Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{0, 0}), hp(10), point(10), shotNum(0)
 {
 	bullets = new BulletsBase * [30];
 	for (int i = 0; i < 30; i++)
@@ -17,6 +25,29 @@ void Enemy::Updata()
 	/*T_Location newLocation = GetLocation();
 	newLocation.y += speed.y;
 	SetLocation(newLocation);*/
+
+	/*speed = { 20,0 };
+	T_Location newLocation = GetLocation();
+	if (newLocation.x != 1280 && newLocation.y <= 150)
+	{
+		newLocation.x += speed.x;
+		if (newLocation.x >= 1280)
+		{
+			speed = { 0,1 };
+			newLocation.y += speed.y;
+		}
+		SetLocation(newLocation);
+	}
+	else if (newLocation.x != 0)
+	{
+		newLocation.x -= speed.x;
+		if (newLocation.x <= 0)
+		{
+			speed = { 0,1 };
+			newLocation.y -= speed.y;
+		}
+		SetLocation(newLocation);
+	}*/
 
 	int bulletCount;
 	for (bulletCount = 0; bulletCount < 30; bulletCount++)
