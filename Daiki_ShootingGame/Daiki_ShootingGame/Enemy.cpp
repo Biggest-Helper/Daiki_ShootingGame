@@ -26,28 +26,35 @@ void Enemy::Updata()
 	newLocation.y += speed.y;
 	SetLocation(newLocation);*/
 
-	/*speed = { 20,0 };
 	T_Location newLocation = GetLocation();
-	if (newLocation.x != 1280 && newLocation.y <= 150)
+	if (newLocation.y <= 100)
 	{
-		newLocation.x += speed.x;
-		if (newLocation.x >= 1280)
-		{
-			speed = { 0,1 };
-			newLocation.y += speed.y;
-		}
+		newLocation.y++;
 		SetLocation(newLocation);
 	}
-	else if (newLocation.x != 0)
+	else 
 	{
-		newLocation.x -= speed.x;
-		if (newLocation.x <= 0)
+		speed = { 3,0 };
+		if (newLocation.x != 1280 && Flag == FALSE)
 		{
-			speed = { 0,1 };
-			newLocation.y -= speed.y;
+			newLocation.x += speed.x;
+			SetLocation(newLocation);
+			if (newLocation.x >= 1280)
+			{
+				Flag = TRUE;
+			}
 		}
-		SetLocation(newLocation);
-	}*/
+		
+		if (newLocation.x != 0 && Flag == TRUE)
+		{
+			newLocation.x -= speed.x;
+			SetLocation(newLocation);
+			if (newLocation.x <= 0)
+			{
+				Flag = FALSE;
+			}
+		}
+	}
 
 	int bulletCount;
 	for (bulletCount = 0; bulletCount < 30; bulletCount++)

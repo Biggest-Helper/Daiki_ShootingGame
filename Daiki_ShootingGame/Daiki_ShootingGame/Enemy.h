@@ -1,4 +1,5 @@
 #pragma once
+#include "DxLib.h"
 #include "CharaBase.h"
 
 class Enemy : public CharaBase
@@ -7,6 +8,7 @@ private:
 	int hp;
 	int point;
 	int shotNum;
+	int Flag = FALSE;
 
 public:
 	Enemy(T_Location location);
