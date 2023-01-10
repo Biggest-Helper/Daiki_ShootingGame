@@ -3,15 +3,44 @@
 #include "StraightBullets.h"
 #include "CircleBullet.h"
 
-T_Location locations[4] =
+//移動パターンの型
+struct MoveInfo
 {
-	{640, 0},
-	{640, 100},
-	{1000, 100},
-	{280, 100},
+	T_Location targetLocation;
+	int pattern;
+	int next;
+	int waitTimeFlame;
+	int attackPattern;
 };
 
-Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{0, 0}), hp(10), point(10), shotNum(0)
+//移動のパターン1
+MoveInfo moveInfo[10] =
+{
+	{ 640, 150, 0, 1,   0, 0},
+	{1260, 150, 0, 2,   0, 0},
+	{   0,   0, 1, 3, 180, 1},
+	{  20, 150, 0, 4,   0, 2},
+	{   0,   0, 1, 5, 180, 1},
+	{1260, 150, 0, 2,   0, 1},
+};
+
+T_Location locations[3] =
+{
+	{640, 150},
+	{1260, 150},
+	{20, 150}
+};
+
+int next[3] = 
+{
+	1,
+	2,
+	1
+};
+
+int current = 0;
+
+Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{5, 1}), hp(10), point(10), shotNum(0)
 {
 	bullets = new BulletsBase * [30];
 	for (int i = 0; i < 30; i++)
@@ -26,35 +55,7 @@ void Enemy::Updata()
 	newLocation.y += speed.y;
 	SetLocation(newLocation);*/
 
-	T_Location newLocation = GetLocation();
-	if (newLocation.y <= 100)
-	{
-		newLocation.y++;
-		SetLocation(newLocation);
-	}
-	else 
-	{
-		speed = { 3,0 };
-		if (newLocation.x != 1280 && Flag == FALSE)
-		{
-			newLocation.x += speed.x;
-			SetLocation(newLocation);
-			if (newLocation.x >= 1280)
-			{
-				Flag = TRUE;
-			}
-		}
-		
-		if (newLocation.x != 0 && Flag == TRUE)
-		{
-			newLocation.x -= speed.x;
-			SetLocation(newLocation);
-			if (newLocation.x <= 0)
-			{
-				Flag = FALSE;
-			}
-		}
-	}
+	Move();
 
 	int bulletCount;
 	for (bulletCount = 0; bulletCount < 30; bulletCount++)
@@ -132,4 +133,95 @@ bool Enemy::HpCheck()
 int Enemy::GetPoint()
 {
 	return point;
+}
+
+//エネミーの移動処理(パターン1)
+void Enemy::Move()
+{
+	//エネミーの現在の座標を取得
+	T_Location nextLocation = GetLocation();
+
+	//TRUE = エネミーが目標座標に到着したら次の座標を再設定
+	if ((nextLocation.y == locations[current].y) && (nextLocation.x == locations[current].x))
+	{
+		current = next[current];
+	}
+	else
+	{
+		
+		if (nextLocation.y != locations[current].y)
+		{
+			//現在のy座標が目標座標yより上の場合
+			if (nextLocation.y < locations[current].y)
+			{
+				nextLocation.y += speed.y;   //エネミーを下側へ移動
+				if ((GetLocation().y <= locations[current].y) && (locations[current].y <= nextLocation.y))
+				{
+					nextLocation.y = locations[current].y;
+				}
+			}
+			//現在のy座標が目標座標yより下の場合
+			else
+			{
+				nextLocation.y -= speed.y;   //エネミーを上側へ移動
+				if ((nextLocation.y <= locations[current].y) && (locations[current].y <= GetLocation().y))
+				{
+					nextLocation.y = locations[current].y;
+				}
+			}
+		}
+
+		if (nextLocation.x != locations[current].x)
+		{
+			if (nextLocation.x < locations[current].x)
+			{
+				nextLocation.x += speed.x;
+				if ((GetLocation().x <= locations[current].x) && (locations[current].x <= nextLocation.x))
+				{
+					nextLocation.x = locations[current].x;
+				}
+			}
+			else
+			{
+				nextLocation.x -= speed.x;
+				if ((nextLocation.x <= locations[current].x) && (locations[current].x <= GetLocation().x))
+				{
+					nextLocation.x = locations[current].x;
+				}
+			}
+		}
+	}
+
+	SetLocation(nextLocation);
+
+	/*T_Location newLocation = GetLocation();
+
+	if (newLocation.y <= 100)
+	{
+		newLocation.y++;
+		SetLocation(newLocation);
+	}
+	else
+	{
+		speed = { 3,0 };
+		if (newLocation.x != 1280 && Flag == FALSE)
+		{
+			newLocation.x += speed.x;
+			SetLocation(newLocation);
+			if (newLocation.x >= 1280)
+			{
+				Flag = TRUE;
+			}
+		}
+
+		if (newLocation.x != 0 && Flag == TRUE)
+		{
+			newLocation.x -= speed.x;
+			SetLocation(newLocation);
+			if (newLocation.x <= 0)
+			{
+				Flag = FALSE;
+			}
+		}
+	}*/
 }
