@@ -2,6 +2,16 @@
 #include "DxLib.h"
 #include "CharaBase.h"
 
+//ˆÚ“®ƒpƒ^[ƒ“‚ÌŒ^
+struct MoveInfo
+{
+	int pattern;
+	T_Location targetLocation;
+	int next;
+	int waitTimeFlame;
+	int attackPattern;
+};
+
 class Enemy : public CharaBase
 {
 private:
@@ -9,6 +19,12 @@ private:
 	int point;
 	int shotNum;
 	/*int Flag = FALSE;*/
+	MoveInfo moveInfo[5] = {};
+
+	int current = 0;
+	int WaitCount = 0;
+
+	void inputCSV();
 
 public:
 	Enemy(T_Location location);

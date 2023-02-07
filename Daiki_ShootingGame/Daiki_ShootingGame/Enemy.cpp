@@ -3,32 +3,6 @@
 #include "StraightBullets.h"
 #include "CircleBullet.h"
 
-//à⁄ìÆÉpÉ^Å[ÉìÇÃå^
-struct MoveInfo
-{
-	int pattern;
-	T_Location targetLocation;
-	int next;
-	int waitTimeFlame;
-	int attackPattern;
-};
-
-MoveInfo moveInfo[5] =
-{
-	{0,    640, 150, 1,   0, 0},
-	{0, 1200.4, 150, 2,   0, 2},
-	{1,      0,   0, 3, 300, 1},
-	{0,   80.2, 150, 4,   0, 2},
-	{1,      0,   0, 1, 300, 1}
-};
-
-T_Location locations[4] =
-{
-	{640, 150},
-	{1260, 150},
-	{20, 150}
-};
-
 int next[3] = 
 {
 	1,
@@ -36,11 +10,44 @@ int next[3] =
 	1
 };
 
-int current = 0;
-int WaitCount = 0;
+void Enemy::inputCSV()
+{
+	FILE* fp; // FILE
+	errno_t error;  // fopen_s
+
+	error = fopen_s(&fp, "data/T_MoveInformation.csv", "r");
+	if (error != 0)
+	{
+		// 
+		return;
+	}
+	else
+	{
+		// 
+		char line[100];
+		for (int i = 0; fgets(line, 100, fp) != NULL; i++)
+			//while(fgets(line, 100, fp) != NULL)
+		{
+			sscanf_s(line, "%d, %f, %f, %d, %d, %d",
+				&moveInfo[i].pattern,
+				&moveInfo[i].targetLocation.x,
+				&moveInfo[i].targetLocation.y,
+				&moveInfo[i].next,
+				&moveInfo[i].waitTimeFlame,
+				&moveInfo[i].attackPattern
+			);
+		}
+
+		return;
+	}
+
+	fclose(fp); //
+}
 
 Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{3, 1}), hp(10), point(10), shotNum(0)
 {
+	inputCSV();
+
 	bullets = new BulletsBase * [30];
 	for (int i = 0; i < 30; i++)
 	{
@@ -67,12 +74,11 @@ void Enemy::Updata()
 		}
 		break;
 
-	case 2:
-
-
 	default:
 		break;
 	}
+
+
 
 	int bulletCount;
 	for (bulletCount = 0; bulletCount < 30; bulletCount++)
@@ -121,6 +127,13 @@ void Enemy::Updata()
 			}
 		}
 	}
+
+#define _DEBUG_MODE_PLAYE_
+
+#ifdef _DEBUG_MODE_PLAYE_
+	DrawFormatString(10, 50, GetColor(255, 255, 255), "x = %lf", GetLocation().x);
+	DrawFormatString(10, 70, GetColor(255, 255, 255), "y = %lf", GetLocation().y);
+#endif
 }
 
 void Enemy::Draw()
