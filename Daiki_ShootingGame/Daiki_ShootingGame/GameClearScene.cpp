@@ -18,10 +18,8 @@ void GameClearScene::Update()
 //描画に関することを実装する
 void GameClearScene::Draw() const
 {
-	SetFontSize(100);
-	DrawString(350, 100, "GameClear", GetColor(255, 0, 0));
-	SetFontSize(35);
-	DrawString(400, 600, "スペースキーでタイトル", GetColor(255, 255, 255));
+	DrawString(350, 300, "GameClear", GetColor(255, 0, 0));
+	DrawString(350, 320, "スペースキーでタイトル", GetColor(255, 255, 255));
 }
 
 //シーンの変更処理

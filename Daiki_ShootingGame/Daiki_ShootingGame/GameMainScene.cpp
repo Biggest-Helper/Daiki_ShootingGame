@@ -16,6 +16,7 @@ GameMainScene::GameMainScene()
 		enemy[i] = nullptr;
 	}
 	enemy[0] = new Enemy(T_Location{SCREEN_WIDTH / 2, -30});
+	enemyCount = 0;
 
 	items = new ItemBase * [10];
 	for (int i = 0; i < 10; i++)
@@ -29,7 +30,7 @@ void GameMainScene::Update()
 {
 	player->Updata();
 
-	int enemyCount;
+	
 	for (enemyCount = 0; enemyCount < 10; enemyCount++)
 	{
 		if (enemy[enemyCount] == nullptr)
@@ -216,9 +217,17 @@ AbstractScene* GameMainScene::ChangeScene()
 		return new GameOverScene;
 	}
 
-	/*if (enemy[0]->HpCheck() == true)
+	for (enemyCount = 0; enemyCount < 10; enemyCount++)
 	{
-		return new GameClearScene;
-	}*/
+		if (enemy[enemyCount] != nullptr)
+		{
+			break;
+		}
+		else if (enemy[9] == nullptr)
+		{
+			return new GameClearScene;
+		}
+	}
+
 	return this;
 }

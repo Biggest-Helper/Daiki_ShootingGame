@@ -10,6 +10,7 @@ private:
 	Player* player;
 	Enemy** enemy;
 	ItemBase** items;
+	int enemyCount;
 
 public:
 	//コンストラクタ
