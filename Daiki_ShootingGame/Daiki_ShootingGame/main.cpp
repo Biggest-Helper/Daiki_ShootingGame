@@ -2,6 +2,7 @@
 #include "common.h"
 #include "SceneManager.h"
 #include "GameMainScene.h"
+#include "TitleScene.h"
 
 /***********************************************
  * プログラムの開始
@@ -25,7 +26,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance,
 	SetFontSize(20);		// 文字サイズを設定
 
 	//シーンマネジャーのオブジェクトの作成
-	SceneManeger SceneMng( dynamic_cast<AbstractScene*>( new GameMainScene() ) );
+	SceneManeger SceneMng( dynamic_cast<AbstractScene*>( new TitleScene()) );
+	/*SceneManeger SceneMng( dynamic_cast<AbstractScene*>( new TitleScene() ) );*/
 
 	// ゲームループ
 	while (ProcessMessage() == 0) 

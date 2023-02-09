@@ -1,4 +1,6 @@
 #include "GameMainScene.h"
+#include "GameOverScene.h"
+#include "GameClearScene.h"
 #include "Recovery.h"
 #include "common.h"
 
@@ -209,5 +211,14 @@ void GameMainScene::Draw() const
 //ƒV[ƒ“‚Ì•ÏXˆ—
 AbstractScene* GameMainScene::ChangeScene()
 {
+	if (player->LifeCheck() == true)
+	{
+		return new GameOverScene;
+	}
+
+	/*if (enemy[0]->HpCheck() == true)
+	{
+		return new GameClearScene;
+	}*/
 	return this;
 }
