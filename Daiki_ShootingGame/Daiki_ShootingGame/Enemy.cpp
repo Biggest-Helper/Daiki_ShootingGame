@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "StraightBullets.h"
 #include "CircleBullet.h"
+#include "TripleBurstBullet.h"
 
 int next[3] = 
 {
@@ -41,15 +42,15 @@ void Enemy::inputCSV()
 		return;
 	}
 
-	fclose(fp); //
+	fclose(fp); //ファイルクローズ
 }
 
 Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{3, 1}), hp(10), point(10), shotNum(0)
 {
 	inputCSV();
 
-	bullets = new BulletsBase * [30];
-	for (int i = 0; i < 30; i++)
+	bullets = new BulletsBase * [200];
+	for (int i = 0; i < 200; i++)
 	{
 		bullets[i] = nullptr;
 	}
@@ -81,7 +82,8 @@ void Enemy::Updata()
 
 
 	int bulletCount;
-	for (bulletCount = 0; bulletCount < 30; bulletCount++)
+	int bulletMax = 200;
+	for (bulletCount = 0; bulletCount < bulletMax; bulletCount++)
 	{
 		//弾切れがないかチェック
 		if (bullets[bulletCount] == nullptr)
@@ -97,7 +99,7 @@ void Enemy::Updata()
 			bullets[bulletCount] = nullptr;
 
 			/*配列を前に詰める(ソート)*/
-			for (int i = bulletCount; i < (30 - 1); i++)
+			for (int i = bulletCount; i < (bulletMax - 1); i++)
 			{
 				if (bullets[i + 1] == nullptr)
 				{
@@ -113,7 +115,7 @@ void Enemy::Updata()
 	//毎フレーム、弾を発射
 	if (moveInfo[current].attackPattern != 0)
 	{
-		if (bulletCount < 30 && bullets[bulletCount] == nullptr)
+		if (bulletCount < bulletMax && bullets[bulletCount] == nullptr)
 		{
 			if(moveInfo[current].attackPattern == 1)
 			{
@@ -125,14 +127,18 @@ void Enemy::Updata()
 				shotNum++;
 				/*bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2 });*/
 			}
+			else if (moveInfo[current].attackPattern == 3)
+			{
+				bullets[bulletCount] = new TripleBurstBullet(GetLocation(), T_Location{ 0,1 });
+			}
 		}
 	}
 
 #define _DEBUG_MODE_PLAYE_
 
 #ifdef _DEBUG_MODE_PLAYE_
-	DrawFormatString(10, 50, GetColor(255, 255, 255), "x = %lf", GetLocation().x);
-	DrawFormatString(10, 70, GetColor(255, 255, 255), "y = %lf", GetLocation().y);
+	/*DrawFormatString(10, 50, GetColor(255, 255, 255), "x = %lf", GetLocation().x);
+	DrawFormatString(10, 70, GetColor(255, 255, 255), "y = %lf", GetLocation().y);*/
 #endif
 }
 
@@ -141,7 +147,7 @@ void Enemy::Draw()
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
 
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
-	for (int bulletCount = 0; bulletCount < 30; bulletCount++)
+	for (int bulletCount = 0; bulletCount < 200; bulletCount++)
 	{
 		//弾切れがないかチェック
 		if (bullets[bulletCount] == nullptr)

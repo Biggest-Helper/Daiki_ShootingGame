@@ -1,14 +1,14 @@
 #include "DxLib.h"
-#include "common.h"
-#include "StraightBullets.h"
+#include "TripleBurstBullet.h"
 
-StraightBullets::StraightBullets(T_Location location, T_Location speed) :
+TripleBurstBullet::TripleBurstBullet(T_Location location, T_Location speed) :
 	BulletsBase(location, 5.f, 1, speed)
 {
 
 }
 
-void StraightBullets::Update()
+
+void TripleBurstBullet::Update()
 {
 	T_Location newLocation = GetLocation();
 	newLocation.x += speed.x;
@@ -16,12 +16,12 @@ void StraightBullets::Update()
 	SetLocation(newLocation);
 }
 
-void StraightBullets::Draw()
+void TripleBurstBullet::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));
+	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 0, 255));
 }
 
-bool StraightBullets::isScreenOut()
+bool TripleBurstBullet::isScreenOut()
 {
 	bool ret = ((GetLocation().y + GetRadius()) <= 0);
 	if (ret)

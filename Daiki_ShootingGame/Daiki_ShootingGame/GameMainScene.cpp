@@ -124,7 +124,7 @@ void GameMainScene::Update()
 			bullet = enemy[enemyCount]->GetBullets();
 
 			//’e‚ğƒ‹[ƒv‚ÅQÆ
-			for (int i = 0; i < 30; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				if (bullet[i] == nullptr)
 				{
