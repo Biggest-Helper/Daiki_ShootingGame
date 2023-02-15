@@ -20,4 +20,5 @@ public:
 	void SetLocation(T_Location location);           //’†SÀ•W‚Ìİ’è
 
 	float GetRadius() const;            //”¼Œa‚Ìæ“¾
+	void SetRadius(float radius_);
 };

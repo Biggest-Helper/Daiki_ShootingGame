@@ -3,6 +3,9 @@
 #include "StraightBullets.h"
 #include "CircleBullet.h"
 #include "TripleBurstBullet.h"
+#include "ChaseBullet.h"
+
+int Cnt = 0;
 
 int next[3] = 
 {
@@ -45,12 +48,12 @@ void Enemy::inputCSV()
 	fclose(fp); //ファイルクローズ
 }
 
-Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{3, 1}), hp(10), point(10), shotNum(0)
+Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{3, 1.5}), hp(20), point(10), shotNum(0)
 {
 	inputCSV();
 
-	bullets = new BulletsBase * [200];
-	for (int i = 0; i < 200; i++)
+	bullets = new BulletsBase * [100];
+	for (int i = 0; i < 100; i++)
 	{
 		bullets[i] = nullptr;
 	}
@@ -82,7 +85,7 @@ void Enemy::Updata()
 
 
 	int bulletCount;
-	int bulletMax = 200;
+	int bulletMax = 100;
 	for (bulletCount = 0; bulletCount < bulletMax; bulletCount++)
 	{
 		//弾切れがないかチェック
@@ -119,7 +122,8 @@ void Enemy::Updata()
 		{
 			if(moveInfo[current].attackPattern == 1)
 			{
-				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2 });
+				/*bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 5 });*/
+				bullets[bulletCount] = new ChaseBullet(GetLocation(), speed);
 			}
 			else if (moveInfo[current].attackPattern == 2)
 			{
@@ -129,7 +133,25 @@ void Enemy::Updata()
 			}
 			else if (moveInfo[current].attackPattern == 3)
 			{
-				bullets[bulletCount] = new TripleBurstBullet(GetLocation(), T_Location{ 0,1 });
+				if (Cnt == 0)
+				{
+					bullets[bulletCount] = new TripleBurstBullet(GetLocation(), T_Location{ 0.5,2 });
+					Cnt++;
+				}
+				else if (Cnt == 1)
+				{
+					bullets[bulletCount] = new TripleBurstBullet(GetLocation(), T_Location{ 0,2 });
+					Cnt++;
+				}
+				else if (Cnt == 2)
+				{
+					bullets[bulletCount] = new TripleBurstBullet(GetLocation(), T_Location{ -0.5,2 });
+					Cnt++;
+				}
+				else
+				{
+					Cnt = 0;
+				}
 			}
 		}
 	}
@@ -147,7 +169,7 @@ void Enemy::Draw()
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
 
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
-	for (int bulletCount = 0; bulletCount < 200; bulletCount++)
+	for (int bulletCount = 0; bulletCount < 100; bulletCount++)
 	{
 		//弾切れがないかチェック
 		if (bullets[bulletCount] == nullptr)

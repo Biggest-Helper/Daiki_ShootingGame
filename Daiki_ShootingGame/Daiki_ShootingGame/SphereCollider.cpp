@@ -48,3 +48,8 @@ float SphereCollider::GetRadius() const
 {
 	return radius;
 }
+
+void SphereCollider::SetRadius(float radius_)
+{
+	this->radius = radius_;
+}

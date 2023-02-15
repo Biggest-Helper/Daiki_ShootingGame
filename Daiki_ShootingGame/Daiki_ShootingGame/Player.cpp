@@ -83,7 +83,7 @@ void Player::Updata()
 	}
 
 	//¶ƒNƒŠƒbƒN‚Å’e‚ğ”­Ë
-	if (KeyManager::OnMousePressed(MOUSE_INPUT_LEFT))
+	if (KeyManager::OnMouseClicked(MOUSE_INPUT_LEFT))
 	{
 		if (bulletCount < 30 && bullets[bulletCount] == nullptr);
 		{

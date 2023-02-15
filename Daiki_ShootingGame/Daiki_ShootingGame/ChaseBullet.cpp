@@ -1,14 +1,34 @@
 #include "DxLib.h"
-#include "TripleBurstBullet.h"
-
-TripleBurstBullet::TripleBurstBullet(T_Location location, T_Location speed) :
+#include "ChaseBullet.h"
+#include "Player.h"
+ChaseBullet::ChaseBullet(T_Location location, T_Location speed) :
 	BulletsBase(location, 5.f, 1, speed)
 {
-
+	playerLocation = T_Location{ 640, 500 };
+	player = new Player(playerLocation);
+	if (location.y < playerLocation.y)
+	{
+		if (location.x == playerLocation.x)
+		{
+			speed = { 0, 3 };
+		}
+		else if (location.x < playerLocation.x)
+		{
+			speed = { 3, 3 };
+		}
+		else if (location.x > playerLocation.x)
+		{
+			speed = { -3, 3 };
+		}
+	}
+	else
+	{
+		speed = { 0, 3 };
+	}
 }
 
 
-void TripleBurstBullet::Update()
+void ChaseBullet::Update()
 {
 	T_Location newLocation = GetLocation();
 	newLocation.x += speed.x;
@@ -16,12 +36,12 @@ void TripleBurstBullet::Update()
 	SetLocation(newLocation);
 }
 
-void TripleBurstBullet::Draw()
+void ChaseBullet::Draw()
 {
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 0, 255));
 }
 
-bool TripleBurstBullet::isScreenOut()
+bool ChaseBullet::isScreenOut()
 {
 	bool ret = ((GetLocation().y + GetRadius()) <= 0);
 	if (ret)
