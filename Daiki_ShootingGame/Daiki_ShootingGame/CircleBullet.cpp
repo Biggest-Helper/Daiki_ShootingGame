@@ -13,6 +13,8 @@ CircleBullet::CircleBullet(T_Location location, float speed, int degAngle) :
 	float y = sin(rad);
 
 	this->speed = T_Location{ (speed * x), (speed * y) };
+
+	bulletImage = LoadGraph("images/stg0710-1.png");
 }
 
 void CircleBullet::Update()
@@ -25,7 +27,8 @@ void CircleBullet::Update()
 
 void CircleBullet::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));
+	DrawGraph(GetLocation().x - 5, GetLocation().y - 5, bulletImage, TRUE);
+	/*DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));*/
 }
 
 bool CircleBullet::isScreenOut()

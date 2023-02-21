@@ -18,8 +18,10 @@ void GameOverScene::Update()
 //描画に関することを実装する
 void GameOverScene::Draw() const
 {
-	DrawString(350, 300, "GameOver", GetColor(255, 0, 0));
-	DrawString(350, 320, "スペースキーでタイトル", GetColor(255, 255, 255));
+	SetFontSize(100);
+	DrawString(420, 200, "GameOver", GetColor(0, 0, 255));
+	SetFontSize(20);
+	DrawString(500, 400, "スペースキーでタイトル", GetColor(255, 255, 255));
 }
 
 //シーンの変更処理

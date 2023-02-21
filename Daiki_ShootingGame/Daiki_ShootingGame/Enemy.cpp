@@ -48,7 +48,7 @@ void Enemy::inputCSV()
 	fclose(fp); //ファイルクローズ
 }
 
-Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{3, 1.5}), hp(20), point(10), shotNum(0)
+Enemy::Enemy(T_Location location) : CharaBase(location, 75.f, T_Location{3, 1.5}), hp(150), point(100), shotNum(0)
 {
 	inputCSV();
 
@@ -57,6 +57,8 @@ Enemy::Enemy(T_Location location) : CharaBase(location, 20.f, T_Location{3, 1.5}
 	{
 		bullets[i] = nullptr;
 	}
+
+	enemyImage = LoadGraph("images/gramteril051004.png");
 }
 
 
@@ -81,7 +83,7 @@ void Enemy::Updata()
 	default:
 		break;
 	}
-
+	
 
 
 	int bulletCount;
@@ -122,8 +124,8 @@ void Enemy::Updata()
 		{
 			if(moveInfo[current].attackPattern == 1)
 			{
-				/*bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 5 });*/
-				bullets[bulletCount] = new ChaseBullet(GetLocation(), speed);
+				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 5 });
+				/*bullets[bulletCount] = new ChaseBullet(GetLocation(), speed);*/
 			}
 			else if (moveInfo[current].attackPattern == 2)
 			{
@@ -166,9 +168,11 @@ void Enemy::Updata()
 
 void Enemy::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
+	/*DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));*/
+	/*DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));*/
 
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
+	DrawGraph(GetLocation().x - 85, GetLocation().y - 85, enemyImage, TRUE);
+
 	for (int bulletCount = 0; bulletCount < 100; bulletCount++)
 	{
 		//弾切れがないかチェック
@@ -178,6 +182,8 @@ void Enemy::Draw()
 		}
 		bullets[bulletCount]->Draw();
 	}
+
+	
 }
 
 void Enemy::Hit(int damage)

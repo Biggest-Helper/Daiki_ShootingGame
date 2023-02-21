@@ -11,6 +11,8 @@ Player::Player(T_Location location) : CharaBase(location, 10.f, T_Location{2, 2}
 	{
 		bullets[i] = nullptr;
 	}
+
+	playerImage = LoadGraph("images/gramteril051004a.png");
 }
 
 void Player::Updata()
@@ -87,7 +89,7 @@ void Player::Updata()
 	{
 		if (bulletCount < 30 && bullets[bulletCount] == nullptr);
 		{
-			bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{0, -2});
+			bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{0, -3});
 		}
 	}
 }
@@ -101,7 +103,7 @@ void Player::Draw()
 	DrawFormatString(10, 30, GetColor(255, 255, 255), "Score = %d", score);
 #endif
 
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
+	/*DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));*/
 	for (int bulletCount = 0; bulletCount < 30; bulletCount++)
 	{
 		//弾切れがないかチェック
@@ -111,6 +113,8 @@ void Player::Draw()
 		}
 		bullets[bulletCount]->Draw();
 	}
+
+	DrawGraph(GetLocation().x - 24, GetLocation().y - 24, playerImage, TRUE);
 }
 
 void Player::Hit(int damage)

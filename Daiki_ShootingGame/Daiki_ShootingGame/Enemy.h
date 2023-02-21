@@ -24,6 +24,8 @@ private:
 	int current = 0;
 	int WaitCount = 0;
 
+	int enemyImage = 0;
+
 	void inputCSV();
 
 public:

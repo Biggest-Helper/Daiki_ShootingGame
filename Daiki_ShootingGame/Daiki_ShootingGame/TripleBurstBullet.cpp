@@ -4,7 +4,7 @@
 TripleBurstBullet::TripleBurstBullet(T_Location location, T_Location speed) :
 	BulletsBase(location, 5.f, 1, speed)
 {
-
+	bulletImage = LoadGraph("images/stg0710-2.png");
 }
 
 
@@ -18,7 +18,8 @@ void TripleBurstBullet::Update()
 
 void TripleBurstBullet::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 0, 255));
+	DrawGraph(GetLocation().x - 5, GetLocation().y - 5, bulletImage, TRUE);
+	/*DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 0, 255));*/
 }
 
 bool TripleBurstBullet::isScreenOut()

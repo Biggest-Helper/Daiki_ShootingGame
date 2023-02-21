@@ -5,7 +5,7 @@
 StraightBullets::StraightBullets(T_Location location, T_Location speed) :
 	BulletsBase(location, 5.f, 1, speed)
 {
-
+	bulletImage = LoadGraph("images/stg0710-3.png");
 }
 
 void StraightBullets::Update()
@@ -18,7 +18,8 @@ void StraightBullets::Update()
 
 void StraightBullets::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));
+	/*DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));*/
+	DrawGraph(GetLocation().x - 5, GetLocation().y - 5, bulletImage, TRUE);
 }
 
 bool StraightBullets::isScreenOut()

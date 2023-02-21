@@ -2,6 +2,8 @@
 #include "BulletsBase.h"
 class StraightBullets : public BulletsBase
 {
+private:
+	int bulletImage = 0;
 public:
 	StraightBullets(T_Location location, T_Location speed);
 
